@@ -78,6 +78,7 @@ def predict_and_display(sentences):
         'Target Sexuality': logistic_r_target_results[:,4],
         'Target Age': logistic_r_target_results[:,5],
         'Target Disability': logistic_r_target_results[:,6]
+    })
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(logisitic_r_target_results_df)
@@ -90,6 +91,7 @@ def predict_and_display(sentences):
         'Target Sexuality': logistic_r_target_results[:,4],
         'Target Age': logistic_r_target_results[:,5],
         'Target Disability': logistic_r_target_results[:,6]
+    })
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(knn_target_results_df)
@@ -102,6 +104,7 @@ def predict_and_display(sentences):
         'Target Sexuality': logistic_r_target_results[:,4],
         'Target Age': logistic_r_target_results[:,5],
         'Target Disability': logistic_r_target_results[:,6]
+    })
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(svm_target_results_df)
