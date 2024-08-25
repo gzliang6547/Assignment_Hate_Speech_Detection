@@ -84,41 +84,41 @@ def predict_and_display(sentences):
         st.table(logisitic_r_target_results_df)
 
     knn_target_results_df = pd.DataFrame({
-        'Target Race': logistic_r_target_results[:,0],
-        'Target Religion': logistic_r_target_results[:,1],
-        'Target Origin': logistic_r_target_results[:,2],
-        'Target Gender': logistic_r_target_results[:,3],
-        'Target Sexuality': logistic_r_target_results[:,4],
-        'Target Age': logistic_r_target_results[:,5],
-        'Target Disability': logistic_r_target_results[:,6]
+        'Target Race': knn_target_results[:,0],
+        'Target Religion': knn_target_results[:,1],
+        'Target Origin': knn_target_results[:,2],
+        'Target Gender': knn_target_results[:,3],
+        'Target Sexuality': knn_target_results[:,4],
+        'Target Age': knn_target_results[:,5],
+        'Target Disability': knn_target_results[:,6]
     })
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(knn_target_results_df)
 
     svm_target_results_df = pd.DataFrame({
-        'Target Race': logistic_r_target_results[:,0],
-        'Target Religion': logistic_r_target_results[:,1],
-        'Target Origin': logistic_r_target_results[:,2],
-        'Target Gender': logistic_r_target_results[:,3],
-        'Target Sexuality': logistic_r_target_results[:,4],
-        'Target Age': logistic_r_target_results[:,5],
-        'Target Disability': logistic_r_target_results[:,6]
+        'Target Race': svm_target_results[:,0],
+        'Target Religion': svm_target_results[:,1],
+        'Target Origin': svm_target_results[:,2],
+        'Target Gender': svm_target_results[:,3],
+        'Target Sexuality': svm_target_results[:,4],
+        'Target Age': svm_target_results[:,5],
+        'Target Disability': svm_target_results[:,6]
     })
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(svm_target_results_df)
     
 
-    # # Display histogram of predictions
-    # st.write("Bar Chart Of Distribution Of Prediction:")
-    # fig, ax = plt.subplots()
-    # prediction_counts = pd.Series(results).value_counts().sort_index()
-    # prediction_counts.plot(kind='bar', ax=ax)
-    # ax.set_title("Number of Hate Speech Predictions")
-    # ax.set_xlabel("Category")
-    # ax.set_ylabel("Count")
-    # ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
-    # st.pyplot(fig)
+    # Display histogram of predictions
+    st.write("Bar Chart Of Distribution Of Prediction:")
+    fig, ax = plt.subplots()
+    prediction_counts = pd.Series(results).value_counts().sort_index()
+    prediction_counts.plot(kind='bar', ax=ax)
+    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_xlabel("Category")
+    ax.set_ylabel("Count")
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
+    st.pyplot(fig)
 if __name__ == '__main__':
     main()
