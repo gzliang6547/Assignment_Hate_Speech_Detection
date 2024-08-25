@@ -108,20 +108,55 @@ def predict_and_display(sentences):
 
     with st.expander("Show/Hide Prediction Table"):
         st.table(svm_target_results_df)
-    
+
+    # Label for x-axis of bar chart
+    x = np.array(["Race", "Religion", "Origin", "Gender", "Sexuality", "Age", "Disability"])
+
+    #------------ Logistic Regression Model ------------
     # Convert result to dataframe
     logistic_r_result_df = pd.DataFrame(logistic_r_target_results)
-    x = np.array(["Race", "Religion", "Origin", "Gender", "Sexuality", "Age", "Disability"])
-    y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
+    logistic_r_result_y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
     
     # Display histogram of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
     fig, ax = plt.subplots()
-    ax.bar(x,y)
+    ax.bar(x,logistic_r_result_y)
     ax.set_title("Number of Hate Speech Predictions")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
     st.pyplot(fig)
+
+    #------------ KNN Model ------------
+    # Convert result to dataframe
+    knn_target_results_df = pd.DataFrame(knn_target_results)
+    knn_target_results_y = np.array([len(knn_target_results_df[knn_target_results_df[0]==True]),len(knn_target_results_df[knn_target_results_df[1]==True]),len(knn_target_results_df[knn_target_results_df[2]==True]),len(knn_target_results_df[knn_target_results_df[3]==True]),len(knn_target_results_df[knn_target_results_df[4]==True]),len(knn_target_results_df[knn_target_results_df[5]==True]),len(knn_target_results_df[knn_target_results_df[6]==True])])
+    
+    # Display histogram of predictions
+    st.write("Bar Chart Of Distribution Of Prediction:")
+    fig, ax = plt.subplots()
+    ax.bar(x,knn_target_results_y)
+    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_xlabel("Target Type")
+    ax.set_ylabel("Count")
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
+    st.pyplot(fig)
+
+    #------------ SVC Model ------------
+    # Convert result to dataframe
+    svm_target_results_df = pd.DataFrame(svm_target_results)
+    svm_target_results_y = np.array([len(svm_target_results_df[svm_target_results_df[0]==True]),len(svm_target_results_df[svm_target_results_df[1]==True]),len(svm_target_results_df[svm_target_results_df[2]==True]),len(svm_target_results_df[svm_target_results_df[3]==True]),len(svm_target_results_df[svm_target_results_df[4]==True]),len(svm_target_results_df[svm_target_results_df[5]==True]),len(svm_target_results_df[svm_target_results_df[6]==True])])
+    
+    # Display histogram of predictions
+    st.write("Bar Chart Of Distribution Of Prediction:")
+    fig, ax = plt.subplots()
+    ax.bar(x,svm_target_results_y)
+    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_xlabel("Target Type")
+    ax.set_ylabel("Count")
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
+    st.pyplot(fig)
+
+
 if __name__ == '__main__':
     main()
