@@ -71,7 +71,7 @@ def predict_and_display(sentences):
         st.table(score_results_df)
 
     logisitic_r_target_results_df = pd.DataFrame({
-        'Target Race': logistic_r_target_results[:,0],
+        'Target Race': [logistic_r_target_results[:,0]],
         'Target Religion': logistic_r_target_results[:,1],
         'Target Origin': logistic_r_target_results[:,2],
         'Target Gender': logistic_r_target_results[:,3],
