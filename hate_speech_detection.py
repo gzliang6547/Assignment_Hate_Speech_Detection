@@ -111,7 +111,7 @@ def predict_and_display(sentences):
     
     # Convert result to dataframe
     logistic_r_result_df = pd.DataFrame(logistic_r_target_results)
-    x = np.array(["Target Race", "Target Religion", "Target Origin", "Target Gender", "Target Sexuality", "Target Age", "Target Disability"])
+    x = np.array(["Race", "Religion", "Origin", "Gender", "Sexuality", "Age", "Disability"])
     y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
     
     # Display histogram of predictions
@@ -119,7 +119,7 @@ def predict_and_display(sentences):
     fig, ax = plt.subplots()
     ax.bar(x,y)
     ax.set_title("Number of Hate Speech Predictions")
-    ax.set_xlabel("Category")
+    ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
     st.pyplot(fig)
