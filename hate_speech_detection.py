@@ -56,7 +56,7 @@ def predict_and_display(sentences):
 
     # Make predictions
     score_results = linear_r_loaded.predict(transformed_sentences)
-    logistic_r_target_results = linear_r_loaded.predict(transformed_sentences)
+    logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
     svm_target_results = svm_loaded.predict(transformed_sentences)
 
@@ -71,7 +71,7 @@ def predict_and_display(sentences):
         st.table(score_results_df)
 
     logisitic_r_target_results_df = pd.DataFrame({
-        'Target Race': [logistic_r_target_results[:,0]],
+        'Target Race': logistic_r_target_results[:,0],
         'Target Religion': logistic_r_target_results[:,1],
         'Target Origin': logistic_r_target_results[:,2],
         'Target Gender': logistic_r_target_results[:,3],
