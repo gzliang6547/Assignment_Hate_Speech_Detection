@@ -109,12 +109,15 @@ def predict_and_display(sentences):
     with st.expander("Show/Hide Prediction Table"):
         st.table(svm_target_results_df)
     
-
+    # Convert result to dataframe
+    logistic_r_result_df = pd.DataFrame(logistic_r_target_results)
+    x = np.array(["Target Race", "Target Religion", "Target Origin", "Target Gender", "Target Sexuality", "Target Age", "Target Disability"])
+    y = np.array([len(logistic_r_result_df['0']=True),len(logistic_r_result_df['1']=True),len(logistic_r_result_df['2']=True),len(logistic_r_result_df['3']=True),len(logistic_r_result_df['4']=True),len(logistic_r_result_df['5']=True),len(logistic_r_result_df['6']=True),])
+    
     # Display histogram of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
     fig, ax = plt.subplots()
-    prediction_counts = pd.Series(results).value_counts().sort_index()
-    prediction_counts.plot(kind='bar', ax=ax)
+    ax.bar(x,y)
     ax.set_title("Number of Hate Speech Predictions")
     ax.set_xlabel("Category")
     ax.set_ylabel("Count")
