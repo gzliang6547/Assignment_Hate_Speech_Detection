@@ -1,3 +1,4 @@
+# import required library
 import streamlit as st
 import nltk
 from nltk import NaiveBayesClassifier
@@ -10,21 +11,22 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
 # Load the TF-IDF vectorizer and all hate speech detection model
-tfidf_loaded = load('hate_speech_count_vectorizer.joblib')
+tfidf_loaded = load('tfidf_vectorizer.joblib')
 linear_r_loaded = load('linear_regression_model.joblib')
 logistic_r_loaded = load('logistic_regression_model.joblib')
 knn_loaded = load('KNN_model.joblib')
 svm_loaded = load('SVC_model.joblib')
 
-# Streamlit application starts here
+# Main Func or start of the Web Application
 def main():
-    # Title of your web app
+    # Set Title of the Web
     st.title("Hate Speech Detection App")
 
     # Sidebar for navigation
     st.sidebar.title("Options")
     option = st.sidebar.selectbox("Choose how to input data", ["Enter text", "Upload file"])
 
+    # Option to manually enter text
     if option == "Enter text":
         # Text box for user input
         user_input = st.text_input("Enter a sentence to check if it's hate speech or not:")
@@ -50,30 +52,70 @@ def main():
 
 def predict_and_display(sentences):
     # Transform the sentences
-    transformed_sentences = cv_loaded.transform(sentences)
+    transformed_sentences = tfidf_loaded.transform(sentences)
 
     # Make predictions
-    results = lr_loaded.predict(transformed_sentences)
+    score_results = linear_r_loaded.predict(transformed_sentences)
+    logistic_r_target_results = linear_r_loaded.predict(transformed_sentences)
+    knn_target_results = knn_loaded.predict(transformed_sentences)
+    svm_target_results = svm_loaded.predict(transformed_sentences)
 
     # Combine the inputs and predictions into a DataFrame
-    results_df = pd.DataFrame({
+    score_results_df = pd.DataFrame({
         'Input': sentences,
-        'Prediction': results
+        'Predicted Hate Speech Score': score_results
     })
 
     # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
-        st.table(results_df)
+        st.table(score_results_df)
 
-    # Display histogram of predictions
-    st.write("Histogram of Predictions:")
-    fig, ax = plt.subplots()
-    prediction_counts = pd.Series(results).value_counts().sort_index()
-    prediction_counts.plot(kind='bar', ax=ax)
-    ax.set_title("Number of Hate Speech Predictions")
-    ax.set_xlabel("Category")
-    ax.set_ylabel("Count")
-    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
-    st.pyplot(fig)
+    logisitic_r_target_results_df = pd.DataFrame({
+        'Target Race': logistic_r_target_results[:,0],
+        'Target Religion': logistic_r_target_results[:,1],
+        'Target Origin': logistic_r_target_results[:,2],
+        'Target Gender': logistic_r_target_results[:,3],
+        'Target Sexuality': logistic_r_target_results[:,4],
+        'Target Age': logistic_r_target_results[:,5],
+        'Target Disability': logistic_r_target_results[:,6]
+
+    with st.expander("Show/Hide Prediction Table"):
+        st.table(logisitic_r_target_results_df)
+
+    knn_target_results_df = pd.DataFrame({
+        'Target Race': logistic_r_target_results[:,0],
+        'Target Religion': logistic_r_target_results[:,1],
+        'Target Origin': logistic_r_target_results[:,2],
+        'Target Gender': logistic_r_target_results[:,3],
+        'Target Sexuality': logistic_r_target_results[:,4],
+        'Target Age': logistic_r_target_results[:,5],
+        'Target Disability': logistic_r_target_results[:,6]
+
+    with st.expander("Show/Hide Prediction Table"):
+        st.table(knn_target_results_df)
+
+    svm_target_results_df = pd.DataFrame({
+        'Target Race': logistic_r_target_results[:,0],
+        'Target Religion': logistic_r_target_results[:,1],
+        'Target Origin': logistic_r_target_results[:,2],
+        'Target Gender': logistic_r_target_results[:,3],
+        'Target Sexuality': logistic_r_target_results[:,4],
+        'Target Age': logistic_r_target_results[:,5],
+        'Target Disability': logistic_r_target_results[:,6]
+
+    with st.expander("Show/Hide Prediction Table"):
+        st.table(svm_target_results_df)
+    
+
+    # # Display histogram of predictions
+    # st.write("Bar Chart Of Distribution Of Prediction:")
+    # fig, ax = plt.subplots()
+    # prediction_counts = pd.Series(results).value_counts().sort_index()
+    # prediction_counts.plot(kind='bar', ax=ax)
+    # ax.set_title("Number of Hate Speech Predictions")
+    # ax.set_xlabel("Category")
+    # ax.set_ylabel("Count")
+    # ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
+    # st.pyplot(fig)
 if __name__ == '__main__':
     main()
