@@ -112,7 +112,7 @@ def predict_and_display(sentences):
     # Convert result to dataframe
     logistic_r_result_df = pd.DataFrame(logistic_r_target_results)
     x = np.array(["Target Race", "Target Religion", "Target Origin", "Target Gender", "Target Sexuality", "Target Age", "Target Disability"])
-    y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True)]])
+    y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
     
     # Display histogram of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
