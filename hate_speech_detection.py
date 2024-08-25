@@ -3,17 +3,18 @@ import nltk
 from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
 from joblib import load
-
-# Load the trained Naive Bayes classifierimport streamlit as st
 from joblib import load
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-# Load your logistic regression model and CountVectorizer
-lr_loaded = load('hate_speech_logistic_regression_model.joblib')
-cv_loaded = load('hate_speech_count_vectorizer.joblib')
+# Load the TF-IDF vectorizer and all hate speech detection model
+tfidf_loaded = load('hate_speech_count_vectorizer.joblib')
+linear_r_loaded = load('linear_regression_model.joblib')
+logistic_r_loaded = load('logistic_regression_model.joblib')
+knn_loaded = load('KNN_model.joblib')
+svm_loaded = load('SVC_model.joblib')
 
 # Streamlit application starts here
 def main():
