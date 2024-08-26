@@ -5,6 +5,7 @@ from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
 from joblib import load
 from joblib import load
+from textblob import TextBlob
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -54,9 +55,11 @@ def main():
 def predict_and_display(sentences):
     # Transform the sentences
     transformed_sentences = tfidf_loaded.transform(sentences)
-
+    transformed_sentences = hstack([transformed_sentences, (TextBlob(sentences).sentiment.polarity).values.reshape(-1, 1)]) 
+    
     # Make predictions
-    score_results = linear_r_with_polarity_loaded.predict(transformed_sentences)
+    score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
+    score_results_with_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
     svm_target_results = svm_loaded.predict(transformed_sentences)
