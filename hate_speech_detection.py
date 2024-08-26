@@ -96,7 +96,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([stemmer.stem(word) for word in x.split()])) 
     
     #create lemmatizer object
-    lemmatizer=WordNetLemmatizer()
+    lemmatizer = WordNetLemmatizer()
     #lemmatize each word
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
 
