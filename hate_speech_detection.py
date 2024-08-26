@@ -1,4 +1,7 @@
 # import required library
+import re 
+import string
+import contractions
 import streamlit as st
 import nltk
 from nltk import NaiveBayesClassifier
@@ -53,6 +56,30 @@ def main():
                 sentences = data['text'].tolist()
                 predict_and_display(sentences)  # File-based prediction
 
+def preprocess_and_clean(sentences):
+    #remove any links or url (e.g. https://123abc.com]
+    sentences_df = pd.DataFrame(sentences,columns=["Sentences"])
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|''[!*,]|(?:%[0-9a-fA-F][0-9a-fA-F]))+','', x))
+    
+    #remove punctuation(except apostrophes[']) and change all text to lowercase 
+    my_punctuation = string.punctuation.replace("'", "")
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('[%s]' % re.escape(my_punctuation), ' ', x.lower())) 
+    
+    #remove contractions (e.g remove We're and change to We are)
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([contractions.fix(word) for word in x.split()]))
+    
+    #remove apostrophe that are still remained after removing contractions
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: x.replace("'","")) 
+    
+    #remove alphanumeric
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r"""\w*\d\w*""", ' ', x)) 
+    
+    #change multiple space characters between words into one space character only
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'\s+', ' ', x))
+    
+    #remove leading and trailing whitespace character
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
+
 def predict_and_display(sentences):
     # Transform the sentences
     transformed_sentences = tfidf_loaded.transform(sentences)
@@ -82,7 +109,7 @@ def predict_and_display(sentences):
     # Combine the inputs and predictions into a DataFrame
     score_results_with_polarity_df = pd.DataFrame({
         'Input': sentences,
-        'Polarit Score' : polarity_score,
+        'Polarity Score' : polarity_score,
         'Predicted Hate Speech Score': score_results_with_polarity
     })
 
