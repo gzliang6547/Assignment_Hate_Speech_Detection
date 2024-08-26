@@ -9,4 +9,4 @@ nltk
 textblob
 scipy
 contractions
-stop-words
+nltk.stopwords
