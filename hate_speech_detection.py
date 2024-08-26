@@ -4,6 +4,9 @@ import string
 import contractions
 import streamlit as st
 import nltk
+from nltk.stem import LancasterStemmer
+from nltk.stem import WordNetLemmatizer 
+from nltk.corpus import stopwords
 from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
 from joblib import load
@@ -81,6 +84,21 @@ def preprocess_and_clean(sentences):
     
     #remove leading and trailing whitespace character
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
+
+    #create stopword object
+    stop = stopwords.words('english')
+    #remove stopwords
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
+    
+    #create stemming object
+    stemmer = LancasterStemmer()
+    #perform stemming on each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([stemmer.stem(word) for word in x.split()])) 
+    
+    #create lemmatizer object
+    lemmatizer=WordNetLemmatizer()
+    #lemmatize each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
 
     return sentences_df["Sentences"].tolist()
 
