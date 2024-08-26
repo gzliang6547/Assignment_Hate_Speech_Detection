@@ -18,8 +18,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-nltk.download('punkt')
-
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
 linear_r_no_polarity_loaded = load('linear_regression_model_no_polarity.joblib')
@@ -103,7 +101,7 @@ def preprocess_and_clean(sentences):
     #create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     #lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(x)]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
