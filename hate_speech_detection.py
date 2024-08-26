@@ -29,7 +29,6 @@ svm_loaded = load('SVC_model.joblib')
 def main():
     # Set Title of the Web
     st.title(":rainbow[Hate Speech Detection Web App]")
-
     # Sidebar for navigation
     st.sidebar.title("Input Options")
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
@@ -50,8 +49,8 @@ def main():
         # Predict button
         if st.button('Predict'):
             if user_input:  # Check if the input is not empty
-                user_input = preprocess_and_clean([user_input])
-                predict_and_display(user_input)  # Single sentence prediction
+                processed_user_input = preprocess_and_clean([user_input])
+                predict_and_display([user_input],processed_user_input)  # Single sentence prediction
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
@@ -66,8 +65,8 @@ def main():
             # Check if the file has content
             if not data.empty:
                 sentences = data['text'].tolist()
-                sentences = preprocess_and_clean(sentences)
-                predict_and_display(sentences)  # File-based prediction
+                processed_sentences = preprocess_and_clean(sentences)
+                predict_and_display(sentences,processed_sentences)  # File-based prediction
 
 def preprocess_and_clean(sentences):
     #remove any links or url (e.g. https://123abc.com]
@@ -97,14 +96,11 @@ def preprocess_and_clean(sentences):
     stop = stopwords.words('english')
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
-
-    # lemmatizer = spacy.load('en_core_web_sm')
-    # sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemma_ for word in lemmatizer(x)]))
     
-    # #create lemmatizer object
-    # lemmatizer = WordNetLemmatizer()
-    # #lemmatize each word
-    # sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+    #create lemmatizer object
+    lemmatizer = WordNetLemmatizer()
+    #lemmatize each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
@@ -113,7 +109,7 @@ def preprocess_and_clean(sentences):
 
     return sentences_df["Sentences"].tolist()
 
-def predict_and_display(sentences):
+def predict_and_display(unprocessed_sentences,sentences):
     # Transform the sentences
     transformed_sentences = tfidf_loaded.transform(sentences)
 
@@ -149,7 +145,8 @@ def predict_and_display(sentences):
 
     # Combine the inputs and predictions into a DataFrame
     score_results_no_polarity_df = pd.DataFrame({
-        'Input': sentences,
+        'Original Input': unprocessed_sentences,
+        'Processed Input': sentences,
         'Predicted Hate Speech Score': score_results_no_polarity,
         'Type Or Category Of Input Text' : text_type_no_polarity
     })
@@ -160,7 +157,8 @@ def predict_and_display(sentences):
 
     # Combine the inputs and predictions into a DataFrame
     score_results_with_polarity_df = pd.DataFrame({
-        'Input': sentences,
+        'Original Input': unprocessed_sentences,
+        'Processed Input': sentences,
         'Polarity Score' : polarity_score,
         'Predicted Hate Speech Score': score_results_with_polarity,
         'Type Or Category Of Input Text' : text_type_with_polarity
