@@ -1,4 +1,5 @@
 # import required library
+nltk.download('wordnet')
 import re 
 import string
 import contractions
@@ -27,6 +28,7 @@ svm_loaded = load('SVC_model.joblib')
 # Main Func or start of the Web Application
 def main():
     # Set Title of the Web
+    
     lemmatizer=WordNetLemmatizer()
     lemmatizer.lemmatize("abc")
     st.title("Hate Speech Detection App")
