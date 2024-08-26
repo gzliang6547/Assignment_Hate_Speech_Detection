@@ -27,9 +27,6 @@ svm_loaded = load('SVC_model.joblib')
 # Main Func or start of the Web Application
 def main():
     # Set Title of the Web
-    
-    lemmatizer=WordNetLemmatizer()
-    lemmatizer.lemmatize("abc")
     st.title("Hate Speech Detection App")
 
     # Sidebar for navigation
@@ -86,11 +83,11 @@ def preprocess_and_clean(sentences):
     #remove leading and trailing whitespace character
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
 
-    # #create stopword object
-    # nltk.download('stopwords')
-    # stop = stopwords.words('english')
-    # #remove stopwords
-    # sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
+    #create stopword object
+    nltk.data.path.append('C:\Users\Asus\AppData\Roaming\nltk_data')
+    stop = stopwords.words('english')
+    #remove stopwords
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
     #create stemming object
     stemmer = LancasterStemmer()
