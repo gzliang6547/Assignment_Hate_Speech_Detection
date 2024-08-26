@@ -36,7 +36,7 @@ def main():
 
     # Sidebar for navigation
     st.sidebar.title("Input Options")
-    option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Mannually Enter Text", "Upload File"])
+    option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
     # Option to manually enter text
     if option == "Mannually Enter Text":
