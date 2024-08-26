@@ -41,7 +41,7 @@ def main():
         if st.button('Predict'):
             if user_input:  # Check if the input is not empty
                 user_input = preprocess_and_clean([user_input])
-                predict_and_display([user_input])  # Single sentence prediction
+                predict_and_display(user_input)  # Single sentence prediction
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
