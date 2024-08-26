@@ -1,12 +1,11 @@
-nltk.download('stopwords')
-nltk.download('wordnet')
-
 # import required library
 import re 
 import string
 import contractions
 import streamlit as st
 import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
