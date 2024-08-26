@@ -40,6 +40,7 @@ def main():
         # Predict button
         if st.button('Predict'):
             if user_input:  # Check if the input is not empty
+                user_input = preprocess_and_clean([user_input])
                 predict_and_display([user_input])  # Single sentence prediction
             else:
                 st.error("Please enter a sentence for prediction.")
@@ -54,6 +55,7 @@ def main():
             # Check if the file has content
             if not data.empty:
                 sentences = data['text'].tolist()
+                sentences = preprocess_and_clean(sentences)
                 predict_and_display(sentences)  # File-based prediction
 
 def preprocess_and_clean(sentences):
@@ -80,7 +82,7 @@ def preprocess_and_clean(sentences):
     #remove leading and trailing whitespace character
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
 
-    return sentences_df.to_numpy()
+    return sentences_df["Sentences"].tolist()
 
 def predict_and_display(sentences):
     # Transform the sentences
