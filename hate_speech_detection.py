@@ -32,7 +32,7 @@ svm_loaded = load('SVC_model.joblib')
 # Main Func or start of the Web Application
 def main():
     # Set Title of the Web
-    st.title(":orange[Hate Speech Detection Web App]")
+    st.title(":rainbow[Hate Speech Detection Web App]")
 
     # Sidebar for navigation
     st.sidebar.title("Input Options")
