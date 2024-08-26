@@ -4,7 +4,6 @@ import string
 import contractions
 import streamlit as st
 import nltk
-from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -40,8 +39,6 @@ def main():
     })  
 
     st.table(hate_speech_score_type)
-    lemmatizer = WordNetLemmatizer()
-    st.subheader(lemmatizer.lemmatize("girlssssssss"))
     
     # Option to manually enter text
     if option == "Manually Enter Text":       
