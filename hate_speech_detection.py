@@ -80,6 +80,8 @@ def preprocess_and_clean(sentences):
     #remove leading and trailing whitespace character
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
 
+    return sentences_df.to_numpy()
+
 def predict_and_display(sentences):
     # Transform the sentences
     transformed_sentences = tfidf_loaded.transform(sentences)
