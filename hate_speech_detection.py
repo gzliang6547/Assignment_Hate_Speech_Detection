@@ -102,10 +102,13 @@ def preprocess_and_clean(sentences):
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
 
-    #create lemmatizer object
-    lemmatizer = WordNetLemmatizer()
-    #lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+    lemmatizer = spacy.load('en_core_web_sm')
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemma_ for word in lemmatizer(x)]))
+    
+    # #create lemmatizer object
+    # lemmatizer = WordNetLemmatizer()
+    # #lemmatize each word
+    # sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
