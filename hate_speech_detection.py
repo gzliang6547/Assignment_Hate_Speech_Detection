@@ -67,7 +67,17 @@ def predict_and_display(sentences):
     # Combine the inputs and predictions into a DataFrame
     score_results_df = pd.DataFrame({
         'Input': sentences,
-        'Predicted Hate Speech Score': score_results
+        'Predicted Hate Speech Score': score_results_no_polarity
+    })
+
+    # Tabulate and display the results
+    with st.expander("Show/Hide Prediction Table"):
+        st.table(score_results_df)
+
+    # Combine the inputs and predictions into a DataFrame
+    score_results_df = pd.DataFrame({
+        'Input': sentences,
+        'Predicted Hate Speech Score': transformed_sentences_with_polarity
     })
 
     # Tabulate and display the results
