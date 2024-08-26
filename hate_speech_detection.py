@@ -3,6 +3,7 @@ import re
 import string
 import contractions
 import streamlit as st
+import spacy
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
@@ -16,7 +17,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import spacy
 
 nltk.download('stopwords')
 
