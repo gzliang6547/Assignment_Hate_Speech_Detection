@@ -39,7 +39,7 @@ def main():
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
     hate_speech_score_type = pd.DataFrame({
-        'Range of Hate Speech Score ' : ['hate speech score > 0.5','1 <= hate speech score <= 0.5','hate speech score < -1'],
+        'Range of Hate Speech Score ' : ['hate speech score > 0.5','-1 <= hate speech score <= 0.5','hate speech score < -1'],
         'Type of Text/Comment ' : ['hate speech','neutral speech or ambiguous','non-hate speech or supportive speech']
     })  
 
@@ -48,7 +48,7 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":       
         # Text box for user input
-        st.subheader("Enter a sentence to check it's hate speech score and determine if it's hate speech or not:orange")
+        st.subheader("Enter a sentence to check it's hate speech score and determine if it's hate speech or not :orange")
         user_input = st.text_input("Your Sentence:")
 
         # Predict button
@@ -59,7 +59,7 @@ def main():
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
-        st.subheader("Please select a text(.txt) or a csv(.csv) file to upload and check the hate speech score:green")
+        st.subheader("Please select a text(.txt) or a csv(.csv) file to upload and check the hate speech score :green")
         uploaded_file = st.file_uploader("Choose a file to upload", type=['txt', 'csv'])
         if uploaded_file is not None:
             if uploaded_file.type == "text/csv" or uploaded_file.name.endswith('.csv'):
