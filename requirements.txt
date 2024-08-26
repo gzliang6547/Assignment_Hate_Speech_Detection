@@ -5,7 +5,7 @@ joblib
 numpy
 matplotlib
 openpyxl
-nltk>=3.8.1
+nltk
 textblob
 scipy
 contractions
