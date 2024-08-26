@@ -70,6 +70,12 @@ def main():
                 predict_and_display(sentences,processed_sentences)  # File-based prediction
 
 def preprocess_and_clean(sentences):
+
+    #create lemmatizer object
+    lemmatizer = WordNetLemmatizer()
+    #lemmatize each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+    
     #remove any links or url (e.g. https://123abc.com]
     sentences_df = pd.DataFrame(sentences,columns=["Sentences"])
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|''[!*,]|(?:%[0-9a-fA-F][0-9a-fA-F]))+','', x))
@@ -83,6 +89,11 @@ def preprocess_and_clean(sentences):
     
     #remove apostrophe that are still remained after removing contractions
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: x.replace("'","")) 
+
+    #create lemmatizer object
+    lemmatizer = WordNetLemmatizer()
+    #lemmatize each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     #remove alphanumeric
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r"""\w*\d\w*""", ' ', x)) 
@@ -107,6 +118,11 @@ def preprocess_and_clean(sentences):
     stemmer = LancasterStemmer()
     # perform stemming on each word
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([stemmer.stem(word) for word in x.split()])) 
+
+    #create lemmatizer object
+    lemmatizer = WordNetLemmatizer()
+    #lemmatize each word
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
 
     return sentences_df["Sentences"].tolist()
 
