@@ -10,3 +10,4 @@ textblob
 scipy
 contractions
 stopwords
+corpus
