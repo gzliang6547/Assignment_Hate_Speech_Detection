@@ -1,10 +1,11 @@
 # import required library
+import nltk
 nltk.download('wordnet')
 import re 
 import string
 import contractions
 import streamlit as st
-import nltk
+
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer,WordNetLemmatizer
 from nltk import NaiveBayesClassifier
