@@ -41,10 +41,11 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":
         # Text box for user input
-        user_input = st.text_input("""<h2>Enter a sentence to check it's hate speech score and determine if it's hate speech or not:</h2> 
+        st.header("""Enter a sentence to check it's hate speech score and determine if it's hate speech or not:
                                        \n- hate speech score > 0.5 = hate speech 
                                        \n- -1 <= hate speech score <= 0.5 = neutral speech or ambiguous
                                        \n- hate speech score < -1 non-hate speech or supportive speech """)
+        user_input = st.text_input()
 
         # Predict button
         if st.button('Predict'):
