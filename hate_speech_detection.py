@@ -39,7 +39,7 @@ def main():
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
     # Option to manually enter text
-    if option == "Mannually Enter Text":
+    if option == "Manually Enter Text":
         # Text box for user input
         user_input = st.text_input("Enter a sentence to check it's hate speech score and determine if it's hate speech or not:")
 
