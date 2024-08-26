@@ -39,10 +39,10 @@ def main():
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
     hate_speech_score_type = pd.DataFrame({
-            ' hate speech score > 0.5': "hate speech",
+            'hate speech score > 0.5': "hate speech",
             '1 <= hate speech score <= 0.5' : "neutral speech or ambiguous",
             'hate speech score < -1': "non-hate speech or supportive speech"
-    })  
+    },columns=["Score","Type of text/comment"])  
 
     st.table(hate_speech_score_type)
 
