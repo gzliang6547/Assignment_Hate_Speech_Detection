@@ -4,7 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
-from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer 
 from nltk.corpus import stopwords
 from nltk import NaiveBayesClassifier
