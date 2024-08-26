@@ -4,6 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
+from nltk import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -100,7 +101,7 @@ def preprocess_and_clean(sentences):
     #create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     #lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in word_tokenize(x)]))
     
     # create stemming object
     stemmer = LancasterStemmer()
