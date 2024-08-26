@@ -48,7 +48,7 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":       
         # Text box for user input
-        st.subheader("Enter a sentence to check it's hate speech score and determine if it's hate speech or not :orange")
+        st.subheader(":orange[Enter a sentence to check it's hate speech score and determine if it's hate speech or not]")
         user_input = st.text_input("Your Sentence:")
 
         # Predict button
@@ -59,7 +59,7 @@ def main():
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
-        st.subheader("Please select a text(.txt) or a csv(.csv) file to upload and check the hate speech score :green")
+        st.subheader(":green[Please select a text(.txt) or a csv(.csv) file to upload and check the hate speech score]")
         uploaded_file = st.file_uploader("Choose a file to upload", type=['txt', 'csv'])
         if uploaded_file is not None:
             if uploaded_file.type == "text/csv" or uploaded_file.name.endswith('.csv'):
