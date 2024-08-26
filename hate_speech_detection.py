@@ -4,6 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
+nltk.download('wordnet')
 from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer 
 from nltk.corpus import stopwords
