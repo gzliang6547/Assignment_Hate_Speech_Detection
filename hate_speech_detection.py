@@ -51,7 +51,7 @@ def main():
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
-        uploaded_file = st.file_uploader("Choose a file", type=['txt', 'csv'])
+        uploaded_file = st.file_uploader("Choose a file to upload", type=['txt', 'csv'])
         if uploaded_file is not None:
             if uploaded_file.type == "text/csv" or uploaded_file.name.endswith('.csv'):
                 data = pd.read_csv(uploaded_file)
