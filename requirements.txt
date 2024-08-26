@@ -5,7 +5,7 @@ joblib
 numpy
 matplotlib
 openpyxl
-nltk==3.4.5
+nltk
 textblob
 scipy
 contraction
