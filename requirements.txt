@@ -8,5 +8,4 @@ openpyxl
 nltk
 textblob
 scipy
-contractions
-WordNetLemmatizer 
+contraction
