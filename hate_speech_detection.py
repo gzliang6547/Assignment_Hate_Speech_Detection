@@ -32,16 +32,16 @@ svm_loaded = load('SVC_model.joblib')
 # Main Func or start of the Web Application
 def main():
     # Set Title of the Web
-    st.title("Hate Speech Detection App")
+    st.title("Hate Speech Detection Web App")
 
     # Sidebar for navigation
-    st.sidebar.title("Options")
-    option = st.sidebar.selectbox("Choose how to input data", ["Enter text", "Upload file"])
+    st.sidebar.title("Input Options")
+    option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Mannually Enter Text", "Upload File"])
 
     # Option to manually enter text
-    if option == "Enter text":
+    if option == "Mannually Enter Text":
         # Text box for user input
-        user_input = st.text_input("Enter a sentence to check if it's hate speech or not:")
+        user_input = st.text_input("Enter a sentence to check it's hate speech score and determine if it's hate speech or not:")
 
         # Predict button
         if st.button('Predict'):
@@ -96,7 +96,7 @@ def preprocess_and_clean(sentences):
     #create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     #lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word, pos="v") for word in x.split()]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
