@@ -7,7 +7,7 @@ import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
-from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer
 from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
 from joblib import load
