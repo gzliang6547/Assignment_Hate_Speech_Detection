@@ -56,7 +56,11 @@ def main():
 def predict_and_display(sentences):
     # Transform the sentences
     transformed_sentences = tfidf_loaded.transform(sentences)
-    #transformed_sentences_with_polarity = hstack([transformed_sentences, (TextBlob(sentences).sentiment.polarity).values.reshape(-1, 1)]) 
+
+    # use textblob library to determine polarity score and transform the sentence
+    sentences_df = pd.DataFrame(sentences)
+    polarity_score = sentences_df.iloc[:, 0].apply(lambda x: TextBlob(x).sentiment.polarity)
+    transformed_sentences_with_polarity = hstack([transformed_sentences, polarity_score.values.reshape(-1, 1)]) 
     
     # Make predictions
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
@@ -75,15 +79,15 @@ def predict_and_display(sentences):
     with st.expander("Show/Hide Prediction Table"):
         st.table(score_results_df)
 
-    # # Combine the inputs and predictions into a DataFrame
-    # score_results_df = pd.DataFrame({
-    #     'Input': sentences,
-    #     'Predicted Hate Speech Score': transformed_sentences_with_polarity
-    # })
+    # Combine the inputs and predictions into a DataFrame
+    score_results_df = pd.DataFrame({
+        'Input': sentences,
+        'Predicted Hate Speech Score': transformed_sentences_with_polarity
+    })
 
-    # # Tabulate and display the results
-    # with st.expander("Show/Hide Prediction Table"):
-    #     st.table(score_results_df)
+    # Tabulate and display the results
+    with st.expander("Show/Hide Prediction Table"):
+        st.table(score_results_df)
 
     logisitic_r_target_results_df = pd.DataFrame({
         'Target Race': logistic_r_target_results[:,0],
