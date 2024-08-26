@@ -142,7 +142,7 @@ def predict_and_display(sentences):
     # Combine the inputs and predictions into a DataFrame
     score_results_no_polarity_df = pd.DataFrame({
         'Input': sentences,
-        'Predicted Hate Speech Score': score_results_no_polarity
+        'Predicted Hate Speech Score': score_results_no_polarity,
         'Type Or Category Of Input Text' : text_type_no_polarity
     })
 
