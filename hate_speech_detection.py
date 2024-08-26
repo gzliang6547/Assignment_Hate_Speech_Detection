@@ -41,7 +41,10 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":
         # Text box for user input
-        user_input = st.text_input("Enter a sentence to check it's hate speech score and determine if it's hate speech or not:")
+        user_input = st.text_input("""Enter a sentence to check it's hate speech score and determine if it's hate speech or not: 
+                                       - hate speech score > 0.5 = hate speech 
+                                       - -1 <= hate speech score <= 0.5 = neutral speech or ambiguous
+                                       - hate speech score < -1 non-hate speech or supportive speech """)
 
         # Predict button
         if st.button('Predict'):
@@ -128,7 +131,7 @@ def predict_and_display(sentences):
     })
 
     # Tabulate and display the results
-    with st.expander("Show/Hide Prediction Table"):
+    with st.expander("Show/Hide Prediction Table (Result With Hate Speech Score Only)"):
         st.table(score_results_no_polarity_df)
 
     # Combine the inputs and predictions into a DataFrame
@@ -139,7 +142,7 @@ def predict_and_display(sentences):
     })
 
     # Tabulate and display the results
-    with st.expander("Show/Hide Prediction Table"):
+    with st.expander("Show/Hide Prediction Table (Result With Polarity Score And Hate Speech Score)"):
         st.table(score_results_with_polarity_df)
 
     logisitic_r_target_results_df = pd.DataFrame({
