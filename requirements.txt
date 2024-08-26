@@ -10,3 +10,5 @@ textblob
 scipy
 contractions
 stopwords
+LancasterStemmer
+WordNetLemmatizer
