@@ -4,13 +4,10 @@ import string
 import contractions
 import streamlit as st
 import nltk
-from nltk.corpus import wordnet
 from nltk.corpus import stopwords
-from nltk.stem import LancasterStemmer
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import LancasterStemmer,WordNetLemmatizer
 from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
-from joblib import load
 from joblib import load
 from textblob import TextBlob
 from scipy.sparse import hstack
