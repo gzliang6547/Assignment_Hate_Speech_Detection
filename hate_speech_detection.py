@@ -70,24 +70,24 @@ def predict_and_display(sentences):
     svm_target_results = svm_loaded.predict(transformed_sentences)
 
     # Combine the inputs and predictions into a DataFrame
-    score_results_df = pd.DataFrame({
+    score_results_no_polarity_df = pd.DataFrame({
         'Input': sentences,
         'Predicted Hate Speech Score': score_results_no_polarity
     })
 
     # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
-        st.table(score_results_df)
+        st.table(score_results_no_polarity_df)
 
     # Combine the inputs and predictions into a DataFrame
-    score_results_df = pd.DataFrame({
+    score_results_with_polarity_df = pd.DataFrame({
         'Input': sentences,
         'Predicted Hate Speech Score': transformed_sentences_with_polarity
     })
 
     # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
-        st.table(score_results_df)
+        st.table(score_results_with_polarity_df)
 
     logisitic_r_target_results_df = pd.DataFrame({
         'Target Race': logistic_r_target_results[:,0],
