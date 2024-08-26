@@ -38,14 +38,18 @@ def main():
     st.sidebar.title("Input Options")
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
+    hate_speech_score_type = pd.DataFrame({
+            ' hate speech score > 0.5': "hate speech",
+            '1 <= hate speech score <= 0.5' : "neutral speech or ambiguous",
+            'hate speech score < -1': "non-hate speech or supportive speech"
+    })  
+
+    st.table(hate_speech_score_type)
+
     # Option to manually enter text
-    if option == "Manually Enter Text":
+    if option == "Manually Enter Text":       
         # Text box for user input
-        st.header("""Enter a sentence to check it's hate speech score and determine if it's hate speech or not:
-                                       \n- hate speech score > 0.5 = hate speech 
-                                       \n- -1 <= hate speech score <= 0.5 = neutral speech or ambiguous
-                                       \n- hate speech score < -1 non-hate speech or supportive speech """)
-        user_input = st.text_input()
+        user_input = st.text_input("Enter a sentence to check it's hate speech score and determine if it's hate speech or not:")
 
         # Predict button
         if st.button('Predict'):
