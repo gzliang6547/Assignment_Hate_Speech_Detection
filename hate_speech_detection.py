@@ -125,6 +125,15 @@ def predict_and_display(sentences):
     
     # Make predictions
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
+    text_type_no_polarity = []
+    for x in score_results_no_polarity:
+        if x > 1 :
+            text_type_no_polarity.append("hate speech")
+        elif x > -1 :
+            text_type_no_polarity.append("neutral speech or ambiguous")
+        else :
+            text_type_no_polarity.append("non-hate speech or supportive speech")
+    
     score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
@@ -134,6 +143,7 @@ def predict_and_display(sentences):
     score_results_no_polarity_df = pd.DataFrame({
         'Input': sentences,
         'Predicted Hate Speech Score': score_results_no_polarity
+        'Type Or Category Of Input Text' : text_type_no_polarity
     })
 
     # Tabulate and display the results
