@@ -6,6 +6,7 @@ from nltk.classify import apply_features
 from joblib import load
 from joblib import load
 from textblob import TextBlob
+from scipy.sparse import hstack
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
