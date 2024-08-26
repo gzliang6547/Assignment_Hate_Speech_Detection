@@ -12,7 +12,8 @@ import matplotlib.ticker as ticker
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
-linear_r_loaded = load('linear_regression_model.joblib')
+linear_r_no_polarity_loaded = load('linear_regression_no_polarity_model.joblib')
+linear_r_with_polarity_loaded = load('linear_regression_with_polarity_model.joblib')
 logistic_r_loaded = load('logistic_regression_model.joblib')
 knn_loaded = load('KNN_model.joblib')
 svm_loaded = load('SVC_model.joblib')
@@ -55,7 +56,7 @@ def predict_and_display(sentences):
     transformed_sentences = tfidf_loaded.transform(sentences)
 
     # Make predictions
-    score_results = linear_r_loaded.predict(transformed_sentences)
+    score_results = linear_r_no_polarity_loaded.predict(transformed_sentences)
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
     svm_target_results = svm_loaded.predict(transformed_sentences)
