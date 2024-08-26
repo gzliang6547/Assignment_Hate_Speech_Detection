@@ -28,7 +28,7 @@ svm_loaded = load('SVC_model.joblib')
 def main():
     # Set Title of the Web
     lemmatizer=WordNetLemmatizer()
-    
+    lemmatizer.lemmatize("abc")
     st.title("Hate Speech Detection App")
 
     # Sidebar for navigation
