@@ -64,7 +64,7 @@ def predict_and_display(sentences):
     
     # Make predictions
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
-    #score_results_with_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences_with_polarity)
+    score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
     svm_target_results = svm_loaded.predict(transformed_sentences)
@@ -82,7 +82,7 @@ def predict_and_display(sentences):
     # Combine the inputs and predictions into a DataFrame
     score_results_with_polarity_df = pd.DataFrame({
         'Input': sentences,
-        'Predicted Hate Speech Score': transformed_sentences_with_polarity
+        'Predicted Hate Speech Score': score_results_with_polarity
     })
 
     # Tabulate and display the results
