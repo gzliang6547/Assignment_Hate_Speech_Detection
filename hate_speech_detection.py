@@ -40,7 +40,9 @@ def main():
     })  
 
     st.table(hate_speech_score_type)
-
+    lemmatizer = WordNetLemmatizer()
+    st.subheader(lemmatizer.lemmatize("girlssssssss"))
+    
     # Option to manually enter text
     if option == "Manually Enter Text":       
         # Text box for user input
@@ -101,7 +103,7 @@ def preprocess_and_clean(sentences):
     #create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     #lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split(" ")]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
