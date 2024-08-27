@@ -9,5 +9,4 @@ nltk
 textblob
 scipy
 contractions
-spacy==3.4.0 
-https://github.com/explosion/spacy-models/releases/download/de_core_news_md-3.4.0/de_core_news_md-3.4.0.tar.gz
+spacy==3.7.6 
