@@ -9,4 +9,3 @@ nltk
 textblob
 scipy
 contractions
-spacy==3.4.0 
