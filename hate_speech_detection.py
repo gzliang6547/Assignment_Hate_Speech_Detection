@@ -3,7 +3,6 @@ import re
 import string
 import contractions
 import streamlit as st
-import spacy
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
