@@ -7,7 +7,6 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
-from nltk import NaiveBayesClassifier
 from nltk.classify import apply_features
 from joblib import load
 from textblob import TextBlob
