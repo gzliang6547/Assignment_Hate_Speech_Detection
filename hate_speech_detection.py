@@ -99,7 +99,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
     #create lemmatizer object
-    lemmatizer = WordNetLemmatizer()
+    lemmatizer = nltk.WordNetLemmatizer()
     #lemmatize each word
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
