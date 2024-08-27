@@ -15,8 +15,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-nltk.download('stopwords')
-nltk.download('wordnet')
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
@@ -96,7 +94,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
 
     #create stopword object
-    stop = stopwords.words('english')
+    stop = stopwords.corpus.stopwords.words('english')
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
