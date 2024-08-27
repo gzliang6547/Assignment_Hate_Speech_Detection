@@ -1,5 +1,4 @@
 # import required library
-pip install spacy
 import re 
 import string
 import contractions
