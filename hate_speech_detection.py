@@ -92,7 +92,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'^\s+|\s+?$','', x))
 
     #create stopword object
-    stop = stopwords.corpus.stopwords.words('english')
+    stop = nltk.corpus.stopwords.words('english')
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
