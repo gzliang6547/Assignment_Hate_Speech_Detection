@@ -33,11 +33,11 @@ def main():
     st.sidebar.title("Input Options")
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
+    # Display the table of hate speech score information
     hate_speech_score_type = pd.DataFrame({
         'Range of Hate Speech Score ' : ['hate speech score > 0.5','-1 <= hate speech score <= 0.5','hate speech score < -1'],
         'Type of Text/Comment ' : ['hate speech','neutral speech or ambiguous','non-hate speech or supportive speech']
     })  
-
     st.table(hate_speech_score_type)
     
     # Option to manually enter text
@@ -68,14 +68,60 @@ def main():
                 processed_sentences = preprocess_and_clean(sentences)
                 predict_and_display(sentences,processed_sentences)  # File-based prediction
 
+#preprocess the text input
 def preprocess_and_clean(sentences):
-    #remove any links or url (e.g. https://123abc.com]
+    #remove any links or url (e.g. https://123abc.com)
     sentences_df = pd.DataFrame(sentences,columns=["Sentences"])
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|''[!*,]|(?:%[0-9a-fA-F][0-9a-fA-F]))+','', x))
-    
-    #remove punctuation(except apostrophes[']) and change all text to lowercase 
+
+    #remove any mention in the text that start with @ (e.g @username)
+    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: re.sub(r'@\S+','', x))
+
+    #remove any hashtag in the text that start with #
+    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: re.sub(r'#\w+','', x))
+
+    #change all word to lowercase
+    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: x.lower())
+
+    #create a dictionary of list of abbreviation and its original form
+    #some popular abbreviations found on the Internet and some abbreviations that we found in the dataset by observation
+    abbreviation_dict = {'dm': 'direct message',
+                     'thx': 'thanks',
+                     'plz': 'please',
+                     'u': 'you',
+                     'asap': 'as soon as possible',
+                     'brb': 'be right back',
+                     'diy': 'do it yourself',
+                     'btw': 'by the way',
+                     'r': 'are',
+                     'stfu' : 'shut the fuck up',
+                     'wtf' : 'what the fuck',
+                     'noob' : 'newbie',
+                     'eta': 'estimated time of arrival',
+                     'nvm' : 'nevermind',
+                     'fb' : 'facebook',
+                     'ig' : 'instagram',
+                     'fyi' : 'for your information',
+                     'imo' : 'in my opinion',
+                     'lol' : 'laughing out loud',
+                     'jk': 'just kidding',
+                     'lmao' : 'laughing my ass off',
+                     'idc' : 'i don\'t care',
+                     'zzz' : 'sleeping, bored, tired',
+                     'tbh' : 'to be honest',
+                     'pov' : 'point of view',
+                     'smh' : 'shaking my head',
+                     'irl' : 'in real life',
+                     'j4f' : 'just for fun',
+                     'idk' : 'i don\'t know',
+                     'ppl' : 'people'
+                    }
+    #removing abbreviations and replace with original words
+    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].str.replace('[...…]','').str.split().apply(lambda x: ' '.join([abbreviation_dict.get(e, e) for e in x]))
+
+    #remove punctuation(except apostrophes['])
     my_punctuation = string.punctuation.replace("'", "")
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('[%s]' % re.escape(my_punctuation), ' ', x.lower())) 
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('[%s]' % re.escape(my_punctuation), ' ', x)) 
     
     #remove contractions (e.g remove We're and change to We are)
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([contractions.fix(word) for word in x.split()]))
