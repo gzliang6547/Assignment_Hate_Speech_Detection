@@ -216,6 +216,7 @@ def predict_and_display(unprocessed_sentences,sentences):
 
     # Combine all the target prediction into one DataFrame (logistic regression)
     logisitic_r_target_results_df = pd.DataFrame({
+        'Processed Input': sentences,
         'Target Race': logistic_r_target_results[:,0],
         'Target Religion': logistic_r_target_results[:,1],
         'Target Origin': logistic_r_target_results[:,2],
@@ -226,11 +227,12 @@ def predict_and_display(unprocessed_sentences,sentences):
     })
 
     # Tabulate and display the results
-    with st.expander("Show/Hide Prediction Table"):
+    with st.expander("Show/Hide Prediction Table (Logistic Regression Model)"):
         st.table(logisitic_r_target_results_df)
 
     # Combine all the target prediction into one DataFrame (KNN)
     knn_target_results_df = pd.DataFrame({
+        'Processed Input': sentences,
         'Target Race': knn_target_results[:,0],
         'Target Religion': knn_target_results[:,1],
         'Target Origin': knn_target_results[:,2],
@@ -241,11 +243,12 @@ def predict_and_display(unprocessed_sentences,sentences):
     })
 
     # Tabulate and display the results
-    with st.expander("Show/Hide Prediction Table"):
+    with st.expander("Show/Hide Prediction Table (KNN Model)"):
         st.table(knn_target_results_df)
 
     # Combine all the target prediction into one DataFrame (SVM)
     svm_target_results_df = pd.DataFrame({
+        'Processed Input': sentences,
         'Target Race': svm_target_results[:,0],
         'Target Religion': svm_target_results[:,1],
         'Target Origin': svm_target_results[:,2],
@@ -256,7 +259,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     })
 
     # Tabulate and display the results
-    with st.expander("Show/Hide Prediction Table"):
+    with st.expander("Show/Hide Prediction Table (SVM Model)"):
         st.table(svm_target_results_df)
 
     #--------------------------- Visualization Of The Result ---------------------------
@@ -269,10 +272,10 @@ def predict_and_display(unprocessed_sentences,sentences):
     logistic_r_result_y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
     
     # Display barchart of predictions
-    st.write("Bar Chart Of Distribution Of Prediction:")
+    st.write("Bar Chart Of Distribution Of Prediction (Logistic Regression Model):")
     fig, ax = plt.subplots()
     ax.bar(x,logistic_r_result_y)
-    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_title("Bar Chart Of Distribution Of Text Target Type (Logistic Regression Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
@@ -284,25 +287,25 @@ def predict_and_display(unprocessed_sentences,sentences):
     knn_target_results_y = np.array([len(knn_target_results_df[knn_target_results_df[0]==True]),len(knn_target_results_df[knn_target_results_df[1]==True]),len(knn_target_results_df[knn_target_results_df[2]==True]),len(knn_target_results_df[knn_target_results_df[3]==True]),len(knn_target_results_df[knn_target_results_df[4]==True]),len(knn_target_results_df[knn_target_results_df[5]==True]),len(knn_target_results_df[knn_target_results_df[6]==True])])
     
     # Display barchart of predictions
-    st.write("Bar Chart Of Distribution Of Prediction:")
+    st.write("Bar Chart Of Distribution Of Prediction (KNN Model):")
     fig, ax = plt.subplots()
     ax.bar(x,knn_target_results_y)
-    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_title("Bar Chart Of Distribution Of Text Target Type (KNN Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
     st.pyplot(fig)
 
-    #------------ SVC Model ------------
+    #------------ SVM Model ------------
     # Convert result to dataframe
     svm_target_results_df = pd.DataFrame(svm_target_results)
     svm_target_results_y = np.array([len(svm_target_results_df[svm_target_results_df[0]==True]),len(svm_target_results_df[svm_target_results_df[1]==True]),len(svm_target_results_df[svm_target_results_df[2]==True]),len(svm_target_results_df[svm_target_results_df[3]==True]),len(svm_target_results_df[svm_target_results_df[4]==True]),len(svm_target_results_df[svm_target_results_df[5]==True]),len(svm_target_results_df[svm_target_results_df[6]==True])])
     
     # Display barchart of predictions
-    st.write("Bar Chart Of Distribution Of Prediction:")
+    st.write("Bar Chart Of Distribution Of Prediction (SVM Model):")
     fig, ax = plt.subplots()
     ax.bar(x,svm_target_results_y)
-    ax.set_title("Number of Hate Speech Predictions")
+    ax.set_title("Bar Chart Of Distribution Of Text Target Type (SVM Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
