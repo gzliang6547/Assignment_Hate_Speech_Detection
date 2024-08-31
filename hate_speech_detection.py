@@ -75,13 +75,13 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|''[!*,]|(?:%[0-9a-fA-F][0-9a-fA-F]))+','', x))
 
     #remove any mention in the text that start with @ (e.g @username)
-    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: re.sub(r'@\S+','', x))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'@\S+','', x))
 
     #remove any hashtag in the text that start with #
-    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: re.sub(r'#\w+','', x))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'#\w+','', x))
 
     #change all word to lowercase
-    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].apply(lambda x: x.lower())
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: x.lower())
 
     #create a dictionary of list of abbreviation and its original form
     #some popular abbreviations found on the Internet and some abbreviations that we found in the dataset by observation
@@ -117,7 +117,7 @@ def preprocess_and_clean(sentences):
                      'ppl' : 'people'
                     }
     #removing abbreviations and replace with original words
-    hate_speech_df['processed_text'] = hate_speech_df['processed_text'].str.replace('[...…]','').str.split().apply(lambda x: ' '.join([abbreviation_dict.get(e, e) for e in x]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].str.replace('[...…]','').str.split().apply(lambda x: ' '.join([abbreviation_dict.get(e, e) for e in x]))
 
     #remove punctuation(except apostrophes['])
     my_punctuation = string.punctuation.replace("'", "")
