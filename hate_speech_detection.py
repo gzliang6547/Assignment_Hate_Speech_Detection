@@ -293,8 +293,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.bar(x,knn_target_results_y)
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (KNN Model)")
     ax.set_xlabel("Target Type")
-    ax.set_ylabel("Count")
-    ax.yaxis.set_major_locator(ticker.FixedLocator([0,1,5]))
+    ax.set_ylabel("Count")    
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     st.pyplot(fig)
@@ -311,7 +310,6 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (SVM Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
-    ax.yaxis.set_major_locator(ticker.FixedLocator([0,1]))
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     st.pyplot(fig)
