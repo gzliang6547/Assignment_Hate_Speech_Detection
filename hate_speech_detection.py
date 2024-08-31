@@ -274,7 +274,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction (Logistic Regression Model):")
     fig, ax = plt.subplots()
-    ax.bar(x,logistic_r_result_y)
+    ax.bar(x,logistic_r_result_y,color=["cyan","magenta","blue","orange","green","olive","darkcyan"])
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (Logistic Regression Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
