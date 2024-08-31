@@ -313,7 +313,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     for i in range (8):
-        ax.text(i,svm_target_results_y[i],svm_target_results_y[i]ha = 'center')
+        ax.text(i,svm_target_results_y[i],svm_target_results_y[i],ha = 'center')
     st.pyplot(fig)
 
 
