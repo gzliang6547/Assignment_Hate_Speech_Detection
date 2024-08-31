@@ -280,6 +280,8 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
+    for i in range (7):
+        ax.text(i,logistic_r_result_y[i]+0.05,logistic_r_result_y[i],ha = 'center')
     st.pyplot(fig)
 
     #------------ KNN Model ------------
@@ -296,6 +298,8 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_ylabel("Count")    
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
+    for i in range (7):
+        ax.text(i,knn_target_results_y[i]+0.05,knn_target_results_y[i],ha = 'center')
     st.pyplot(fig)
 
     #------------ SVM Model ------------
@@ -313,7 +317,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     for i in range (7):
-        ax.text(i,svm_target_results_y[i],svm_target_results_y[i],ha = 'center')
+        ax.text(i,svm_target_results_y[i]+0.05,svm_target_results_y[i],ha = 'center')
     st.pyplot(fig)
 
 
