@@ -6,7 +6,6 @@ import streamlit as st
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
-from nltk.stem import WordNetLemmatizer
 from nltk.classify import apply_features
 from joblib import load
 from textblob import TextBlob, Word
@@ -16,8 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
-nltk.download('punkt') 
-nltk.download('wordnet') 
+nltk.download('punkt')  
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
@@ -56,7 +54,7 @@ def main():
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
-        st.subheader(":green[Please select a text(.txt) or a csv(.csv) file to upload and check the hate speech score]")
+        st.subheader(":green[Select a text(.txt) or a csv(.csv) file to upload and check the hate speech score]")
         uploaded_file = st.file_uploader("Choose a file to upload", type=['txt', 'csv'])
         if uploaded_file is not None:
             if uploaded_file.type == "text/csv" or uploaded_file.name.endswith('.csv'):
@@ -99,10 +97,7 @@ def preprocess_and_clean(sentences):
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
-    # #create lemmatizer object
-    # lemmatizer = nltk.WordNetLemmatizer()
     # #lemmatize each word
-    # sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
     
     # create stemming object
