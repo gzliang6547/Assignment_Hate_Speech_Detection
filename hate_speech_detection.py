@@ -279,7 +279,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
-    ax.set_ylim(0,1)
+    ax.set_ylim(0)
     st.pyplot(fig)
 
     #------------ KNN Model ------------
@@ -295,7 +295,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
-    ax.set_ylim(0,1)
+    ax.set_ylim(0)
     st.pyplot(fig)
 
     #------------ SVM Model ------------
@@ -311,7 +311,8 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True))  # Ensure y-axis has integer ticks
-    ax.set_ylim(0,1)
+    ax.yaxis.set_major_locator(ticker.AutoLocator())
+    ax.set_ylim(0)
     st.pyplot(fig)
 
 
