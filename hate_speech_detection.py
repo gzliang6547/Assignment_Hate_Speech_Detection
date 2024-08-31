@@ -49,7 +49,7 @@ def main():
         # Predict button
         if st.button('Predict'):
             if user_input:  # Check if the input is not empty
-                processed_user_input = preprocess_and_clean([user_input])
+                processed_user_input = preprocess_and_clean([user_input]) # Preprocess text 
                 predict_and_display([user_input],processed_user_input)  # Single sentence prediction
             else:
                 st.error("Please enter a sentence for prediction.")
@@ -65,7 +65,7 @@ def main():
             # Check if the file has content
             if not data.empty:
                 sentences = data['text'].tolist()
-                processed_sentences = preprocess_and_clean(sentences)
+                processed_sentences = preprocess_and_clean(sentences) # Preprocess text in the file
                 predict_and_display(sentences,processed_sentences)  # File-based prediction
 
 #preprocess the text input
@@ -162,7 +162,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     polarity_score = sentences_df.iloc[:, 0].apply(lambda x: TextBlob(x).sentiment.polarity)
     transformed_sentences_with_polarity = hstack([transformed_sentences, polarity_score.values.reshape(-1, 1)]) 
     
-    # Make predictions
+    # Make predictions for hate speech score (without polarity score as feature)
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
     text_type_no_polarity = []
     for x in score_results_no_polarity:
@@ -172,7 +172,8 @@ def predict_and_display(unprocessed_sentences,sentences):
             text_type_no_polarity.append("neutral speech or ambiguous")
         else :
             text_type_no_polarity.append("non-hate speech or supportive speech")
-    
+
+    # Make predictions for hate speech score (with polarity score as feature)
     score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
     text_type_with_polarity = []
     for x in score_results_with_polarity:
@@ -182,12 +183,13 @@ def predict_and_display(unprocessed_sentences,sentences):
             text_type_with_polarity.append("neutral speech or ambiguous")
         else :
             text_type_with_polarity.append("non-hate speech or supportive speech")
-            
+
+    # Make predictions for text target
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
     knn_target_results = knn_loaded.predict(transformed_sentences)
     svm_target_results = svm_loaded.predict(transformed_sentences)
 
-    # Combine the inputs and predictions into a DataFrame
+    # Combine the inputs and hate speech score predictions into a DataFrame
     score_results_no_polarity_df = pd.DataFrame({
         'Original Input': unprocessed_sentences,
         'Processed Input': sentences,
@@ -199,7 +201,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     with st.expander("Show/Hide Prediction Table (Result With Hate Speech Score Only)"):
         st.table(score_results_no_polarity_df)
 
-    # Combine the inputs and predictions into a DataFrame
+    # Combine the inputs, polarity score and hate speech score predictions into a DataFrame
     score_results_with_polarity_df = pd.DataFrame({
         'Original Input': unprocessed_sentences,
         'Processed Input': sentences,
@@ -212,6 +214,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     with st.expander("Show/Hide Prediction Table (Result With Polarity Score And Hate Speech Score)"):
         st.table(score_results_with_polarity_df)
 
+    # Combine all the target prediction into one DataFrame (logistic regression)
     logisitic_r_target_results_df = pd.DataFrame({
         'Target Race': logistic_r_target_results[:,0],
         'Target Religion': logistic_r_target_results[:,1],
@@ -222,9 +225,11 @@ def predict_and_display(unprocessed_sentences,sentences):
         'Target Disability': logistic_r_target_results[:,6]
     })
 
+    # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
         st.table(logisitic_r_target_results_df)
 
+    # Combine all the target prediction into one DataFrame (KNN)
     knn_target_results_df = pd.DataFrame({
         'Target Race': knn_target_results[:,0],
         'Target Religion': knn_target_results[:,1],
@@ -235,9 +240,11 @@ def predict_and_display(unprocessed_sentences,sentences):
         'Target Disability': knn_target_results[:,6]
     })
 
+    # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
         st.table(knn_target_results_df)
 
+    # Combine all the target prediction into one DataFrame (SVM)
     svm_target_results_df = pd.DataFrame({
         'Target Race': svm_target_results[:,0],
         'Target Religion': svm_target_results[:,1],
@@ -248,9 +255,11 @@ def predict_and_display(unprocessed_sentences,sentences):
         'Target Disability': svm_target_results[:,6]
     })
 
+    # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table"):
         st.table(svm_target_results_df)
 
+    #--------------------------- Visualization Of The Result ---------------------------
     # Label for x-axis of bar chart
     x = np.array(["Race", "Religion", "Origin", "Gender", "Sexuality", "Age", "Disability"])
 
@@ -259,7 +268,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     logistic_r_result_df = pd.DataFrame(logistic_r_target_results)
     logistic_r_result_y = np.array([len(logistic_r_result_df[logistic_r_result_df[0]==True]),len(logistic_r_result_df[logistic_r_result_df[1]==True]),len(logistic_r_result_df[logistic_r_result_df[2]==True]),len(logistic_r_result_df[logistic_r_result_df[3]==True]),len(logistic_r_result_df[logistic_r_result_df[4]==True]),len(logistic_r_result_df[logistic_r_result_df[5]==True]),len(logistic_r_result_df[logistic_r_result_df[6]==True])])
     
-    # Display histogram of predictions
+    # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
     fig, ax = plt.subplots()
     ax.bar(x,logistic_r_result_y)
@@ -274,7 +283,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     knn_target_results_df = pd.DataFrame(knn_target_results)
     knn_target_results_y = np.array([len(knn_target_results_df[knn_target_results_df[0]==True]),len(knn_target_results_df[knn_target_results_df[1]==True]),len(knn_target_results_df[knn_target_results_df[2]==True]),len(knn_target_results_df[knn_target_results_df[3]==True]),len(knn_target_results_df[knn_target_results_df[4]==True]),len(knn_target_results_df[knn_target_results_df[5]==True]),len(knn_target_results_df[knn_target_results_df[6]==True])])
     
-    # Display histogram of predictions
+    # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
     fig, ax = plt.subplots()
     ax.bar(x,knn_target_results_y)
@@ -289,7 +298,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     svm_target_results_df = pd.DataFrame(svm_target_results)
     svm_target_results_y = np.array([len(svm_target_results_df[svm_target_results_df[0]==True]),len(svm_target_results_df[svm_target_results_df[1]==True]),len(svm_target_results_df[svm_target_results_df[2]==True]),len(svm_target_results_df[svm_target_results_df[3]==True]),len(svm_target_results_df[svm_target_results_df[4]==True]),len(svm_target_results_df[svm_target_results_df[5]==True]),len(svm_target_results_df[svm_target_results_df[6]==True])])
     
-    # Display histogram of predictions
+    # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction:")
     fig, ax = plt.subplots()
     ax.bar(x,svm_target_results_y)
