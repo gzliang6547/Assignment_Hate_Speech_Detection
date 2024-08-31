@@ -290,7 +290,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction (KNN Model):")
     fig, ax = plt.subplots()
-    ax.bar(x,knn_target_results_y)
+    ax.bar(x,knn_target_results_y,color=["cyan","magenta","blue","orange","green","olive","darkcyan"])
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (KNN Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")    
@@ -306,7 +306,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Display barchart of predictions
     st.write("Bar Chart Of Distribution Of Prediction (SVM Model):")
     fig, ax = plt.subplots()
-    ax.bar(x,svm_target_results_y)
+    ax.bar(x,svm_target_results_y,color=["cyan","magenta","blue","orange","green","olive","darkcyan"])
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (SVM Model)")
     ax.set_xlabel("Target Type")
     ax.set_ylabel("Count")
