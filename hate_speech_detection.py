@@ -198,7 +198,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     svm_target_results = svm_loaded.predict(transformed_sentences)
 
     # Display subheader for better presentation
-    st.subheader(":lime[Hate Speech Score Prediction]") 
+    st.subheader(":violet[Hate Speech Score Prediction]") 
     
     # Combine the inputs and hate speech score predictions into a DataFrame
     score_results_no_polarity_df = pd.DataFrame({
@@ -248,7 +248,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     st.pyplot(fig)
 
     # Display subheader for better presentation
-    st.subheader(":limegreen[Text Target Prediction]")
+    st.subheader(":violet[Text Target Prediction]")
     
     # Combine all the target prediction into one DataFrame (logistic regression)
     logisitic_r_target_results_df = pd.DataFrame({
