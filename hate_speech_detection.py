@@ -198,7 +198,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     svm_target_results = svm_loaded.predict(transformed_sentences)
 
     # Display subheader for better presentation
-    st.subheader(":limegreen[Hate Speech Score Prediction]") 
+    st.subheader(":lime[Hate Speech Score Prediction]") 
     
     # Combine the inputs and hate speech score predictions into a DataFrame
     score_results_no_polarity_df = pd.DataFrame({
