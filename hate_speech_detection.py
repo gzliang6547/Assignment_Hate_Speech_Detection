@@ -164,7 +164,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     
     # Make predictions for hate speech score (without polarity score as feature)
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
-    text_type_no_polarity = [0,0,0]
+    text_type_no_polarity = []
     for x in score_results_no_polarity:
         if x > 1 :
             text_type_no_polarity.append("hate speech")
@@ -176,7 +176,15 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Convert the text type list to DataFrame to plot graph
     text_type_no_polarity_df = pd.DataFrame(text_type_no_polarity, columns=['type'])
     text_type_no_polarity_count = text_type_no_polarity_df['type'].value_counts()
-
+    text_type_no_polarity_count_df = pd.DataFrame(["score < -1","-1 <= score <= 0.5","score > 0.5"], columns=['Type'])
+    for i in range(3):
+        if text_type_no_polarity_count.index[i] == "non-hate speech or supportive speech":
+            text_type_no_polarity_count_df["Count"].iloc[0] = text_type_no_polarity_count.value[i]
+        if text_type_no_polarity_count.index[i] == "neutral speech or ambiguous":
+            text_type_no_polarity_count_df["Count"].iloc[1] = text_type_no_polarity_count.value[i]
+        if text_type_no_polarity_count.index[i] == "hate speech":
+            text_type_no_polarity_count_df["Count"].iloc[2] = text_type_no_polarity_count.value[i]
+    
     # Make predictions for hate speech score (with polarity score as feature)
     score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
     text_type_with_polarity = []
@@ -191,6 +199,14 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Convert the text type list to DataFrame to plot graph
     text_type_with_polarity_df = pd.DataFrame(text_type_with_polarity, columns=['type'])
     text_type_with_polarity_count = text_type_with_polarity_df['type'].value_counts()
+    text_type_with_polarity_count_df = pd.DataFrame(["score < -1","-1 <= score <= 0.5","score > 0.5"], columns=['Type'])
+    for i in range(3):
+        if text_type_with_polarity_count.index[i] == "non-hate speech or supportive speech":
+            text_type_with_polarity_count_df["Count"].iloc[0] = text_type_with_polarity_count.value[i]
+        if text_type_with_polarity_count.index[i] == "neutral speech or ambiguous":
+            text_type_with_polarity_count_df["Count"].iloc[1] = text_type_with_polarity_count.value[i]
+        if text_type_with_polarity_count.index[i] == "hate speech":
+            text_type_with_polarity_count_df["Count"].iloc[2] = text_type_with_polarity_count.value[i]
 
     # Make predictions for text target
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
@@ -228,7 +244,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Create bar chart
     st.write("Bar Chart Of Distribution Of Hate Speech Score Prediction(Model Trained Without Polarity Score):")
     fig, ax = plt.subplots()
-    ax.bar(["score < -1","score > 0.5", "-1 <= score <= 0.5"],text_type_no_polarity_count,color=["cyan","magenta","blue"])
+    ax.bar(text_type_no_polarity_count_df['Type'],text_type_no_polarity_count_df['Count'],color=["cyan","magenta","blue"])
     ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction\n(Model Trained Without Polarity Score)")
     ax.set_xlabel("Hate Speech Score Range")
     ax.set_ylabel("Count")
@@ -241,7 +257,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     # Create bar chart
     st.write("Bar Chart Of Distribution Of Hate Speech Score Prediction(Model Trained With Polarity Score):")
     fig, ax = plt.subplots()
-    ax.bar(["score < -1","score > 0.5", "-1 <= score <= 0.5"],text_type_with_polarity_count,color=["cyan","magenta","blue"])
+    ax.bar(text_type_with_polarity_count_df['Type'],text_type_with_polarity_count_df['Count'],color=["cyan","magenta","blue"])
     ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction\n(Model Trained With Polarity Score)")
     ax.set_xlabel("Hate Speech Score Range")
     ax.set_ylabel("Count")
