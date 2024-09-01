@@ -251,7 +251,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     for i in range (3):
-        ax.text(i,text_type_no_polarity_count[i],text_type_no_polarity_count[i],ha = 'center')
+        ax.text(i,text_type_no_polarity_count_df["Count"].iloc[i],text_type_no_polarity_count_df["Count"].iloc[i],ha = 'center')
     st.pyplot(fig)
 
     # Create bar chart
@@ -264,7 +264,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
     for i in range (3):
-        ax.text(i,text_type_with_polarity_count[i],text_type_with_polarity_count[i],ha = 'center')
+        ax.text(i,text_type_with_polarity_count_df['Count'].iloc[i],text_type_with_polarity_count_df['Count'].iloc[i],ha = 'center')
     st.pyplot(fig)
 
     # Display subheader for better presentation
