@@ -204,7 +204,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     
     st.write("Bar Chart Of Distribution Of Prediction (Logistic Regression Model):")
     fig, ax = plt.subplots()
-    ax.bar(["score > 0.5", "-1 <= score <= 0.5", "score < -1"],text_type_no_polarity_count,color=["cyan","magenta","blue")
+    ax.bar(["score > 0.5", "-1 <= score <= 0.5", "score < -1"],text_type_no_polarity_count,color=["cyan","magenta","blue"])
     ax.set_title("Bar Chart Of Distribution Of Text Target Type (Logistic Regression Model)")
     ax.set_xlabel("Hate Speech Score Range")
     ax.set_ylabel("Count")
