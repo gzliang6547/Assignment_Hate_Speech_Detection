@@ -173,6 +173,10 @@ def predict_and_display(unprocessed_sentences,sentences):
         else :
             text_type_no_polarity.append("non-hate speech or supportive speech")
 
+    # Convert the text type list to DataFrame to plot graph
+    text_type_no_polarity_df = pd.DataFrame(text_type_no_polarity, columns=['type'])
+    text_type_no_polarity_count = text_type_no_polarity_df['type'].value_counts()
+
     # Make predictions for hate speech score (with polarity score as feature)
     score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
     text_type_with_polarity = []
@@ -196,6 +200,17 @@ def predict_and_display(unprocessed_sentences,sentences):
         'Predicted Hate Speech Score': score_results_no_polarity,
         'Type Or Category Of Input Text' : text_type_no_polarity
     })
+
+    
+    st.write("Bar Chart Of Distribution Of Prediction (Logistic Regression Model):")
+    fig, ax = plt.subplots()
+    ax.bar(["score > 0.5", "-1 <= score <= 0.5", "score < -1"],text_type_no_polarity_count,color=["cyan","magenta","blue")
+    ax.set_title("Bar Chart Of Distribution Of Text Target Type (Logistic Regression Model)")
+    ax.set_xlabel("Hate Speech Score Range")
+    ax.set_ylabel("Count")
+    ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
+    ax.set_ylim(0)
+    st.pyplot(fig)
 
     # Tabulate and display the results
     with st.expander("Show/Hide Prediction Table (Result With Hate Speech Score Only)"):
