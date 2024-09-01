@@ -229,22 +229,26 @@ def predict_and_display(unprocessed_sentences,sentences):
     st.write("Bar Chart Of Distribution Of Hate Speech Score Prediction(Model Trained Without Polarity Score):")
     fig, ax = plt.subplots()
     ax.bar(["score < -1","score > 0.5", "-1 <= score <= 0.5"],text_type_no_polarity_count,color=["cyan","magenta","blue"])
-    ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction")
+    ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction\n(Model Trained Without Polarity Score)")
     ax.set_xlabel("Hate Speech Score Range")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
+    for i in range (3):
+        ax.text(i,text_type_no_polarity_count[i],text_type_no_polarity_count[i],ha = 'center')
     st.pyplot(fig)
 
     # Create bar chart
     st.write("Bar Chart Of Distribution Of Hate Speech Score Prediction(Model Trained With Polarity Score):")
     fig, ax = plt.subplots()
     ax.bar(["score < -1","score > 0.5", "-1 <= score <= 0.5"],text_type_with_polarity_count,color=["cyan","magenta","blue"])
-    ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction")
+    ax.set_title("Bar Chart Of Distribution Of Hate Speech Score Prediction\n(Model Trained With Polarity Score)")
     ax.set_xlabel("Hate Speech Score Range")
     ax.set_ylabel("Count")
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer=True,min_n_ticks=1))  # Ensure y-axis has integer ticks
     ax.set_ylim(0)
+    for i in range (3):
+        ax.text(i,text_type_with_polarity_count[i],text_type_with_polarity_count[i],ha = 'center')
     st.pyplot(fig)
 
     # Display subheader for better presentation
