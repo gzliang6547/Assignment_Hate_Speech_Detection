@@ -164,7 +164,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     
     # Make predictions for hate speech score (without polarity score as feature)
     score_results_no_polarity = linear_r_no_polarity_loaded.predict(transformed_sentences)
-    text_type_no_polarity = []
+    text_type_no_polarity = [0,0,0]
     for x in score_results_no_polarity:
         if x > 1 :
             text_type_no_polarity.append("hate speech")
