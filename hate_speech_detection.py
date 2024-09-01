@@ -177,7 +177,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     text_type_no_polarity_df = pd.DataFrame(text_type_no_polarity, columns=['type'])
     text_type_no_polarity_count = text_type_no_polarity_df['type'].value_counts()
     text_type_no_polarity_count_df = pd.DataFrame([["score < -1",0],["-1 <= score <= 0.5",0],["score > 0.5",0]], columns=['Type','Count'])
-    for i in range(3):
+    for i in range(text_type_no_polarity_count.size):
         if text_type_no_polarity_count.index[i] == "non-hate speech or supportive speech":
             text_type_no_polarity_count_df["Count"].iloc[0] = text_type_no_polarity_count.values[i]
         if text_type_no_polarity_count.index[i] == "neutral speech or ambiguous":
@@ -200,7 +200,7 @@ def predict_and_display(unprocessed_sentences,sentences):
     text_type_with_polarity_df = pd.DataFrame(text_type_with_polarity, columns=['type'])
     text_type_with_polarity_count = text_type_with_polarity_df['type'].value_counts()
     text_type_with_polarity_count_df = pd.DataFrame([["score < -1",0],["-1 <= score <= 0.5",0],["score > 0.5",0]], columns=['Type','Count'])
-    for i in range(3):
+    for i in range(text_type_with_polarity_count.size):
         if text_type_with_polarity_count.index[i] == "non-hate speech or supportive speech":
             text_type_with_polarity_count_df["Count"].iloc[0] = text_type_with_polarity_count.values[i]
         if text_type_with_polarity_count.index[i] == "neutral speech or ambiguous":
