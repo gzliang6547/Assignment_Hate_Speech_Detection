@@ -179,11 +179,11 @@ def predict_and_display(unprocessed_sentences,sentences):
     text_type_no_polarity_count_df = pd.DataFrame(["score < -1","-1 <= score <= 0.5","score > 0.5"], columns=['Type'])
     for i in range(3):
         if text_type_no_polarity_count.index[i] == "non-hate speech or supportive speech":
-            text_type_no_polarity_count_df["Count"].iloc[0] = text_type_no_polarity_count.value[i]
+            text_type_no_polarity_count_df["Count"].iloc[0] = text_type_no_polarity_count.values[i]
         if text_type_no_polarity_count.index[i] == "neutral speech or ambiguous":
-            text_type_no_polarity_count_df["Count"].iloc[1] = text_type_no_polarity_count.value[i]
+            text_type_no_polarity_count_df["Count"].iloc[1] = text_type_no_polarity_count.values[i]
         if text_type_no_polarity_count.index[i] == "hate speech":
-            text_type_no_polarity_count_df["Count"].iloc[2] = text_type_no_polarity_count.value[i]
+            text_type_no_polarity_count_df["Count"].iloc[2] = text_type_no_polarity_count.values[i]
     
     # Make predictions for hate speech score (with polarity score as feature)
     score_results_with_polarity = linear_r_with_polarity_loaded.predict(transformed_sentences_with_polarity)
@@ -202,11 +202,11 @@ def predict_and_display(unprocessed_sentences,sentences):
     text_type_with_polarity_count_df = pd.DataFrame(["score < -1","-1 <= score <= 0.5","score > 0.5"], columns=['Type'])
     for i in range(3):
         if text_type_with_polarity_count.index[i] == "non-hate speech or supportive speech":
-            text_type_with_polarity_count_df["Count"].iloc[0] = text_type_with_polarity_count.value[i]
+            text_type_with_polarity_count_df["Count"].iloc[0] = text_type_with_polarity_count.values[i]
         if text_type_with_polarity_count.index[i] == "neutral speech or ambiguous":
-            text_type_with_polarity_count_df["Count"].iloc[1] = text_type_with_polarity_count.value[i]
+            text_type_with_polarity_count_df["Count"].iloc[1] = text_type_with_polarity_count.values[i]
         if text_type_with_polarity_count.index[i] == "hate speech":
-            text_type_with_polarity_count_df["Count"].iloc[2] = text_type_with_polarity_count.value[i]
+            text_type_with_polarity_count_df["Count"].iloc[2] = text_type_with_polarity_count.values[i]
 
     # Make predictions for text target
     logistic_r_target_results = logistic_r_loaded.predict(transformed_sentences)
