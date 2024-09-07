@@ -82,7 +82,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'@\S+','', x))
 
     #remove any hashtag in the text that start with #
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'#\w+','', x))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: re.sub(r'#\S+','', x))
 
     #change all word to lowercase
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: x.lower())
