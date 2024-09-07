@@ -5,6 +5,7 @@ import contractions
 import streamlit as st
 import nltk
 from nltk.corpus import stopwords
+from nltk.corpus import wordnet
 from nltk.stem import LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
@@ -16,7 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
 nltk.download('punkt_tab')
-nltk.download('wordnet')
+
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
@@ -148,7 +149,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
     # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([Word(word).lemmatize() for word in TextBlob(x).words]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
     
     # create stemming object
     stemmer = LancasterStemmer()
