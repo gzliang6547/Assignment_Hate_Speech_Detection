@@ -5,7 +5,6 @@ import contractions
 import streamlit as st
 import nltk
 from nltk.corpus import stopwords
-from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
@@ -17,6 +16,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
 nltk.download('wordnet')
+from nltk.corpus import wordnet
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
