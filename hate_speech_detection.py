@@ -7,7 +7,7 @@ import nltk
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 nltk.download('wordnet')
-from nltk.corpus import stopwords,wordnet
+from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
@@ -32,7 +32,7 @@ def main():
     # Set Title of the Web
     st.title(":rainbow[Hate Speech Detection Web App]")
     # Sidebar for navigation
-    st.sidebar.title("Input Options",wordnet.get_version())
+    st.sidebar.title("Input Options"))
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
 
     # Display the table of hate speech score information
