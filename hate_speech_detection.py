@@ -14,9 +14,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import subprocess
-cmd = ['python3','-m','textblob.download_corpora']
-subprocess.run(cmd)
 nltk.download('stopwords')
 
 # Load the TF-IDF vectorizer and all hate speech detection model
@@ -146,8 +143,8 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
     # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
-    
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word for word in x.split()]))
+    #sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
     # create stemming object
     stemmer = LancasterStemmer()
     # perform stemming on each word
