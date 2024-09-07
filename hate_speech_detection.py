@@ -4,6 +4,11 @@ import string
 import contractions
 import streamlit as st
 import nltk
+nltk.data.path.append('/path/to/nltk_data') 
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
@@ -14,11 +19,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-nltk.download('stopwords')
-nltk.download('punkt_tab')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
