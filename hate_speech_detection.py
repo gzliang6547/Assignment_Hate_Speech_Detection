@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
-from textblob import TextBlob
+from textblob import TextBlob,Word
 from scipy.sparse import hstack
 import pandas as pd
 import numpy as np
@@ -148,7 +148,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
     
     # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([Word(word).lemmatize() for word in TextBlob(x).words]))
     
     # create stemming object
     stemmer = LancasterStemmer()
