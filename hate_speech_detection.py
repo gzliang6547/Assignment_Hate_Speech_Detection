@@ -4,7 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
-nltk.data.path.append('/path/to/nltk_data') 
+nltk.data.path.append('C:\Users\Asus\AppData\Roaming\nltk_data') 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 nltk.download('wordnet')
