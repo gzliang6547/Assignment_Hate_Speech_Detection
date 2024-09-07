@@ -7,7 +7,7 @@ import nltk
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 nltk.download('wordnet')
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords,wordnet
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
@@ -30,7 +30,7 @@ svm_loaded = load('SVC_model.joblib')
 # Main Func or start of the Web Application
 def main():
     # Set Title of the Web
-    st.title(":rainbow[Hate Speech Detection Web App]")
+    st.title(":rainbow[Hate Speech Detection Web App]",wordnet.get_version())
     # Sidebar for navigation
     st.sidebar.title("Input Options")
     option = st.sidebar.selectbox("Choose Method To Input Text Data/Comments", ["Manually Enter Text", "Upload File"])
