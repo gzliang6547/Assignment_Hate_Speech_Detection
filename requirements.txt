@@ -6,6 +6,6 @@ numpy
 matplotlib
 openpyxl
 nltk
-TextBlob
+textblob
 scipy
 contractions
