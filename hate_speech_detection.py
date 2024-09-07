@@ -4,6 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
+nltk.download('punkt')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
