@@ -12,6 +12,7 @@ from textblob import TextBlob
 from scipy.sparse import hstack
 import pandas as pd
 import numpy as np
+import spacy
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
