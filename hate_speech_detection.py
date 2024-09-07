@@ -147,9 +147,10 @@ def preprocess_and_clean(sentences):
     stop = stopwords.words('english')
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
-    
+
+    lemmatizer = WordNetLemmatizer()
     # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
     
     # create stemming object
     stemmer = LancasterStemmer()
