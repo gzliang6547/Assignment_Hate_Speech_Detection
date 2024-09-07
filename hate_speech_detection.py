@@ -4,7 +4,7 @@ import string
 import contractions
 import streamlit as st
 import nltk
-nltk.data.path.append('C:\\Users\\Asus\\OneDrive\\Desktop\\wordnet') 
+nltk.data.path.append('C:/Users/Asus/OneDrive/Desktop/wordnet') 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 nltk.download('wordnet')
