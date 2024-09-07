@@ -16,7 +16,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
-nltk.download('punkt_tab')
 nltk.download('wordnet')
 
 # Load the TF-IDF vectorizer and all hate speech detection model
@@ -148,6 +147,7 @@ def preprocess_and_clean(sentences):
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
 
+    # create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     # lemmatize each word
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
