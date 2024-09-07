@@ -153,7 +153,7 @@ def preprocess_and_clean(sentences):
     # create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize for word in TextBlob(x).words]))
+    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([word.lemmatize() for word in TextBlob(x).words]))
     
     # create stemming object
     stemmer = LancasterStemmer()
