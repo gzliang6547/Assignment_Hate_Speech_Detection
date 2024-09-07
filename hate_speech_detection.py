@@ -48,8 +48,11 @@ def main():
         # Predict button
         if st.button('Predict'):
             if user_input:  # Check if the input is not empty
-                processed_user_input = preprocess_and_clean([user_input]) # Preprocess text 
-                predict_and_display([user_input],processed_user_input)  # Single sentence prediction
+                processed_user_input = preprocess_and_clean([user_input]) # Preprocess text
+                if processed_user_input:
+                    predict_and_display([user_input],processed_user_input)  # Single sentence prediction
+                else:
+                    st.error("Please enter another sentence for prediction.")
             else:
                 st.error("Please enter a sentence for prediction.")
     else:  # Option to upload file
