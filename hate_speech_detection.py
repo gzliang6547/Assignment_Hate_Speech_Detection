@@ -16,7 +16,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 nltk.download('stopwords')
 nltk.download('wordnet')
-from nltk.corpus import wordnet
 
 # Load the TF-IDF vectorizer and all hate speech detection model
 tfidf_loaded = load('tfidf_vectorizer.joblib')
