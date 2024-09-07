@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer,LancasterStemmer
 from nltk.classify import apply_features
 from joblib import load
-from textblob import TextBlob
+from textblob import TextBlob,Word
 from scipy.sparse import hstack
 import pandas as pd
 import numpy as np
@@ -45,6 +45,7 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":       
         # Text box for user input
+        st.subheader("",Word("kidssss").lemmatize())  
         st.subheader(":orange[Enter a sentence to check it's hate speech score and determine if it's hate speech or not]\n(Higher Hate Speech Score = More Hateful)")    
         user_input = st.text_input("Your Sentence:")
 
