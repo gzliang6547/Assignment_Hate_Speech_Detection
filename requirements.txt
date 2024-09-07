@@ -9,3 +9,4 @@ nltk
 scipy
 contractions
 textblob
+spacy-streamlit
