@@ -10,3 +10,4 @@ scipy
 contractions
 textblob
 spacy-streamlit
+spacy
