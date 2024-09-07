@@ -45,8 +45,9 @@ def main():
     # Option to manually enter text
     if option == "Manually Enter Text":       
         # Text box for user input
-        st.subheader(":orange[Enter a sentence to check it's hate speech score and determine if it's hate speech or not]\n(Higher Hate Speech Score = More Hateful)")    
-        user_input = st.text_input("Your Sentence:Word("kidssss").lemmatize()")
+        st.subheader(":orange[Enter a sentence to check it's hate speech score and determine if it's hate speech or not]\n(Higher Hate Speech Score = More Hateful)") 
+        st.markdown(Word("kidssss").lemmatize())
+        user_input = st.text_input("Your Sentence:")
 
         # Predict button
         if st.button('Predict'):
