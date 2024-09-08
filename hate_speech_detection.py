@@ -88,7 +88,7 @@ def preprocess_and_clean(sentences):
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: x.lower())
 
     #create a dictionary of list of abbreviation and its original form
-    #some popular abbreviations found on the Internet and some abbreviations that we found in the dataset by observation
+    #some popular abbreviations found on the Internet
     abbreviation_dict = {'dm': 'direct message',
                      'thx': 'thanks',
                      'plz': 'please',
@@ -147,10 +147,41 @@ def preprocess_and_clean(sentences):
     #remove stopwords
     sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x : ' '.join([word for word in x.split() if word not in (stop)]))
 
+    #define a function that can assign the wordnet pos tag for every word based on the nltk pos tag for wordnet lemmatization purpose
+    def assign_wordnet_pos_tag(nltk_pos_tag):
+        if nltk_pos_tag.startswith('J'):
+            return wordnet.ADJ
+        elif nltk_pos_tag.startswith('V'):
+            return wordnet.VERB
+        elif nltk_pos_tag.startswith('N'):
+            return wordnet.NOUN
+        elif nltk_pos_tag.startswith('R'):
+            return wordnet.ADV
+        else:          
+            return None
+    
+    #apply nltk pos tag on every word in the input
+    pos_tagged_text = sentences_df['Sentences'].apply(lambda x : nltk.pos_tag(nltk.word_tokenize(x)) )
+    
+    #convert the nltk pos tag to wordnet pos tag for lemmatization
+    wordnet_tagged_text = pos_tagged_text.apply(lambda x: list(map(lambda y: (y[0], assign_wordnet_pos_tag(y[1])), x)))
+    
     # create lemmatizer object
     lemmatizer = WordNetLemmatizer()
-    # lemmatize each word
-    sentences_df['Sentences'] = sentences_df['Sentences'].apply(lambda x: ' '.join([lemmatizer.lemmatize(word) for word in x.split()]))
+    #lemmatize each word in each sentence based on the wordnet pos tag
+    lemmatized_sentence_list = []
+    for sentence in wordnet_tagged_text:
+        lemmatized_sentence = []
+        for word, tag in sentence:
+            if tag is None:
+                lemmatized_sentence.append(lemmatizer.lemmatize(word)) #if no tag is found, lemmatize word with default tag
+            else:        
+                lemmatized_sentence.append(lemmatizer.lemmatize(word, tag)) #if there is a wordnet tag, lemmatize word with the tag
+        lemmatized_sentence = " ".join(lemmatized_sentence)        #join all word into sentence
+        lemmatized_sentence_list.append(lemmatized_sentence)       #append into the list variable of lemmatized sentence
+    
+    #convert the lemmatized sentences in list into the dataframe 
+    sentences_df['Sentences'] = pd.DataFrame(lemmatized_sentence_list)
     
     # create stemming object
     stemmer = LancasterStemmer()
