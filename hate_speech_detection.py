@@ -169,16 +169,16 @@ def preprocess_and_clean(sentences):
     # create lemmatizer object
     lemmatizer = WordNetLemmatizer()
     #lemmatize each word in each sentence based on the wordnet pos tag
-    lemmatized_sentence_list = []
-    for sentence in wordnet_tagged_text:
-        lemmatized_sentence = []
-        for word, tag in sentence:
-            if tag is None:
-                lemmatized_sentence.append(lemmatizer.lemmatize(word)) #if no tag is found, lemmatize word with default tag
-            else:        
-                lemmatized_sentence.append(lemmatizer.lemmatize(word, tag)) #if there is a wordnet tag, lemmatize word with the tag
-        lemmatized_sentence = " ".join(lemmatized_sentence)        #join all word into sentence
-        lemmatized_sentence_list.append(lemmatized_sentence)       #append into the list variable of lemmatized sentence
+    # lemmatized_sentence_list = []
+    # for sentence in wordnet_tagged_text:
+    #     lemmatized_sentence = []
+    #     for word, tag in sentence:
+    #         if tag is None:
+    #             lemmatized_sentence.append(lemmatizer.lemmatize(word)) #if no tag is found, lemmatize word with default tag
+    #         else:        
+    #             lemmatized_sentence.append(lemmatizer.lemmatize(word, tag)) #if there is a wordnet tag, lemmatize word with the tag
+    #     lemmatized_sentence = " ".join(lemmatized_sentence)        #join all word into sentence
+    #     lemmatized_sentence_list.append(lemmatized_sentence)       #append into the list variable of lemmatized sentence
     
     #convert the lemmatized sentences in list into the dataframe 
     sentences_df['Sentences'] = pd.DataFrame(lemmatized_sentence_list)
