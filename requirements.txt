@@ -9,5 +9,3 @@ nltk==3.8.1
 scipy
 contractions
 textblob
-spacy-streamlit
-spacy
