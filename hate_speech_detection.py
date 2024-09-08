@@ -181,7 +181,7 @@ def preprocess_and_clean(sentences):
     #     lemmatized_sentence_list.append(lemmatized_sentence)       #append into the list variable of lemmatized sentence
     
     #convert the lemmatized sentences in list into the dataframe 
-    sentences_df['Sentences'] = pd.DataFrame(lemmatized_sentence_list)
+    # sentences_df['Sentences'] = pd.DataFrame(lemmatized_sentence_list)
     
     # create stemming object
     stemmer = LancasterStemmer()
